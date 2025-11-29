@@ -85,7 +85,14 @@ public class ProdutosController : ControllerBase
     [HttpDelete("{id}")]
     public async Task<ActionResult> Delete(int id)
     {
-        await _produtoService.DeleteAsync(id);
-        return NoContent();
+        try
+        {
+            await _produtoService.DeleteAsync(id);
+            return Ok(new { message = "Produto inativado com sucesso" });
+        }
+        catch (Exception ex)
+        {
+            return BadRequest(new { message = ex.Message });
+        }
     }
 }

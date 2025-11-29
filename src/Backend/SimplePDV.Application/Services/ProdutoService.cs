@@ -74,7 +74,12 @@ public class ProdutoService
 
     public async Task DeleteAsync(int id)
     {
-        await _produtoRepository.DeleteAsync(id);
+        var produto = await _produtoRepository.GetByIdAsync(id);
+        if (produto == null)
+            throw new Exception("Produto não encontrado");
+
+        produto.Ativo = false;
+        await _produtoRepository.UpdateAsync(produto);
     }
 
     public async Task<IEnumerable<ProdutoDto>> GetProdutosEstoqueBaixoAsync()
