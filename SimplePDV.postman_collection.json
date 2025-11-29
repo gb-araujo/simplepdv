@@ -1,0 +1,384 @@
+{
+	"info": {
+		"_postman_id": "a1b2c3d4-e5f6-7890-abcd-ef1234567890",
+		"name": "SimplePDV API",
+		"description": "Collection completa para testar todos os endpoints da SimplePDV API",
+		"schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json"
+	},
+	"item": [
+		{
+			"name": "Produtos",
+			"item": [
+				{
+					"name": "Listar Todos os Produtos",
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "{{base_url}}/api/produtos",
+							"host": ["{{base_url}}"],
+							"path": ["api", "produtos"]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Listar Produtos Ativos",
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "{{base_url}}/api/produtos/ativos",
+							"host": ["{{base_url}}"],
+							"path": ["api", "produtos", "ativos"]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Buscar Produto por ID",
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "{{base_url}}/api/produtos/1",
+							"host": ["{{base_url}}"],
+							"path": ["api", "produtos", "1"]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Buscar Produto por SKU",
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "{{base_url}}/api/produtos/sku/COCA2L",
+							"host": ["{{base_url}}"],
+							"path": ["api", "produtos", "sku", "COCA2L"]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Listar Produtos com Estoque Baixo",
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "{{base_url}}/api/produtos/estoque-baixo",
+							"host": ["{{base_url}}"],
+							"path": ["api", "produtos", "estoque-baixo"]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Criar Produto",
+					"request": {
+						"method": "POST",
+						"header": [
+							{
+								"key": "Content-Type",
+								"value": "application/json"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n  \"nome\": \"Coca-Cola 2L\",\n  \"sku\": \"COCA2L\",\n  \"preco\": 8.50,\n  \"estoqueAtual\": 50,\n  \"estoqueMinimo\": 10\n}"
+						},
+						"url": {
+							"raw": "{{base_url}}/api/produtos",
+							"host": ["{{base_url}}"],
+							"path": ["api", "produtos"]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Atualizar Produto",
+					"request": {
+						"method": "PUT",
+						"header": [
+							{
+								"key": "Content-Type",
+								"value": "application/json"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n  \"nome\": \"Coca-Cola 2L - Promoção\",\n  \"preco\": 7.99,\n  \"estoqueMinimo\": 15,\n  \"ativo\": true\n}"
+						},
+						"url": {
+							"raw": "{{base_url}}/api/produtos/1",
+							"host": ["{{base_url}}"],
+							"path": ["api", "produtos", "1"]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Inativar Produto",
+					"request": {
+						"method": "DELETE",
+						"header": [],
+						"url": {
+							"raw": "{{base_url}}/api/produtos/1",
+							"host": ["{{base_url}}"],
+							"path": ["api", "produtos", "1"]
+						}
+					},
+					"response": []
+				}
+			]
+		},
+		{
+			"name": "Vendas",
+			"item": [
+				{
+					"name": "Listar Todas as Vendas",
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "{{base_url}}/api/vendas",
+							"host": ["{{base_url}}"],
+							"path": ["api", "vendas"]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Buscar Venda por ID",
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "{{base_url}}/api/vendas/1",
+							"host": ["{{base_url}}"],
+							"path": ["api", "vendas", "1"]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Vendas por Período",
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "{{base_url}}/api/vendas/periodo?dataInicio=2024-01-01&dataFim=2024-12-31",
+							"host": ["{{base_url}}"],
+							"path": ["api", "vendas", "periodo"],
+							"query": [
+								{
+									"key": "dataInicio",
+									"value": "2024-01-01"
+								},
+								{
+									"key": "dataFim",
+									"value": "2024-12-31"
+								}
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Vendas Não Sincronizadas",
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "{{base_url}}/api/vendas/nao-sincronizadas",
+							"host": ["{{base_url}}"],
+							"path": ["api", "vendas", "nao-sincronizadas"]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Criar Venda",
+					"request": {
+						"method": "POST",
+						"header": [
+							{
+								"key": "Content-Type",
+								"value": "application/json"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n  \"usuarioId\": 1,\n  \"formaPagamento\": 0,\n  \"itens\": [\n    {\n      \"produtoId\": 1,\n      \"quantidade\": 2,\n      \"precoUnitario\": 8.50\n    }\n  ]\n}"
+						},
+						"url": {
+							"raw": "{{base_url}}/api/vendas",
+							"host": ["{{base_url}}"],
+							"path": ["api", "vendas"]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Marcar Venda como Sincronizada",
+					"request": {
+						"method": "PATCH",
+						"header": [],
+						"url": {
+							"raw": "{{base_url}}/api/vendas/1/sincronizar",
+							"host": ["{{base_url}}"],
+							"path": ["api", "vendas", "1", "sincronizar"]
+						}
+					},
+					"response": []
+				}
+			]
+		},
+		{
+			"name": "Usuários",
+			"item": [
+				{
+					"name": "Listar Usuários",
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "{{base_url}}/api/usuarios",
+							"host": ["{{base_url}}"],
+							"path": ["api", "usuarios"]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Buscar Usuário por ID",
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "{{base_url}}/api/usuarios/1",
+							"host": ["{{base_url}}"],
+							"path": ["api", "usuarios", "1"]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Login",
+					"request": {
+						"method": "POST",
+						"header": [
+							{
+								"key": "Content-Type",
+								"value": "application/json"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n  \"login\": \"admin\",\n  \"senha\": \"admin123\"\n}"
+						},
+						"url": {
+							"raw": "{{base_url}}/api/usuarios/login",
+							"host": ["{{base_url}}"],
+							"path": ["api", "usuarios", "login"]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Criar Usuário",
+					"request": {
+						"method": "POST",
+						"header": [
+							{
+								"key": "Content-Type",
+								"value": "application/json"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n  \"nome\": \"João Silva\",\n  \"login\": \"joao\",\n  \"senha\": \"senha123\"\n}"
+						},
+						"url": {
+							"raw": "{{base_url}}/api/usuarios",
+							"host": ["{{base_url}}"],
+							"path": ["api", "usuarios"]
+						}
+					},
+					"response": []
+				}
+			]
+		},
+		{
+			"name": "Estoque",
+			"item": [
+				{
+					"name": "Movimentações por Produto",
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "{{base_url}}/api/estoque/produto/1",
+							"host": ["{{base_url}}"],
+							"path": ["api", "estoque", "produto", "1"]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Movimentações por Período",
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "{{base_url}}/api/estoque/periodo?dataInicio=2024-01-01&dataFim=2024-12-31",
+							"host": ["{{base_url}}"],
+							"path": ["api", "estoque", "periodo"],
+							"query": [
+								{
+									"key": "dataInicio",
+									"value": "2024-01-01"
+								},
+								{
+									"key": "dataFim",
+									"value": "2024-12-31"
+								}
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Registrar Movimento Manual",
+					"request": {
+						"method": "POST",
+						"header": [
+							{
+								"key": "Content-Type",
+								"value": "application/json"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n  \"produtoId\": 1,\n  \"usuarioId\": 1,\n  \"tipo\": 0,\n  \"quantidade\": 20,\n  \"observacao\": \"Reposição de estoque\"\n}"
+						},
+						"url": {
+							"raw": "{{base_url}}/api/estoque/movimento",
+							"host": ["{{base_url}}"],
+							"path": ["api", "estoque", "movimento"]
+						}
+					},
+					"response": []
+				}
+			]
+		}
+	],
+	"variable": [
+		{
+			"key": "base_url",
+			"value": "http://localhost:5000",
+			"type": "string"
+		}
+	]
+}
