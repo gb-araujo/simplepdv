@@ -1,69 +1,61 @@
 # Contribuindo para o SimplePDV
 
-Obrigado por considerar contribuir com o SimplePDV! Este é um projeto de estudos, mas toda ajuda é bem-vinda.
+Se você quiser contribuir, fico feliz! É meu primeiro projeto desse tamanho então toda ajuda é bem-vinda.
 
 ## Como Contribuir
 
-### Reportando Bugs
+### Achou um Bug?
 
-Se encontrar um bug, abra uma issue com:
-- Descrição clara do problema
-- Passos para reproduzir
-- Comportamento esperado vs observado
-- Screenshots se aplicável
-- Informações do ambiente (SO, .NET version)
+Abra uma issue dizendo:
+- O que você tava tentando fazer
+- O que aconteceu
+- O que você esperava que acontecesse
+- Se possível, manda um print
 
-### Sugerindo Melhorias
+### Tem uma Ideia?
 
-Sugestões de features são sempre bem-vindas! Abra uma issue descrevendo:
-- O problema que a feature resolveria
-- Como você imagina que funcionaria
-- Exemplos de uso
+Legal! Abre uma issue pra gente discutir antes de fazer o PR. Assim vejo se faz sentido pro projeto.
 
-### Pull Requests
+### Quer Mandar Código?
 
-1. Fork o projeto
-2. Crie uma branch para sua feature (`git checkout -b feature/MinhaFeature`)
-3. Commit suas mudanças (`git commit -m 'Adiciona MinhaFeature'`)
-4. Push para a branch (`git push origin feature/MinhaFeature`)
-5. Abra um Pull Request
+1. Faz um fork do projeto
+2. Cria uma branch (`git checkout -b minha-feature`)
+3. Faz suas mudanças
+4. Commit (`git commit -m 'Adiciona tal coisa'`)
+5. Push (`git push origin minha-feature`)
+6. Abre um Pull Request
 
 **Dicas:**
-- Mantenha commits pequenos e focados
-- Escreva mensagens de commit descritivas
-- Siga as convenções de código do projeto
-- Adicione testes quando possível (ainda estou implementando os testes 😅)
+- Tenta manter os commits pequenos
+- Explica o que mudou e por quê
+- Se quebrar algo, me avisa na PR
 
-## Padrões de Código
+## Estilo de Código
 
-- Use 4 espaços para indentação
-- Siga as convenções de nomenclatura do C#
-- Use `var` quando o tipo é óbvio
-- Preferência por código legível vs "inteligente"
+Nada muito rígido, mas tenta seguir:
+- Usa 4 espaços pra indentar
+- Nomes em português tá ok (como tá no projeto)
+- Comenta só o que é complicado, não precisa comentar tudo
 
 ## Estrutura de Commits
 
-Tente seguir esse padrão:
+Uso esse padrão simples:
 
 ```
 tipo: descrição curta
 
-Descrição mais detalhada se necessário.
+Se precisar, explica mais aqui.
 ```
 
-**Tipos:**
-- `feat`: Nova funcionalidade
+**Tipos que uso:**
+- `feat`: Coisa nova
 - `fix`: Correção de bug
-- `docs`: Mudanças na documentação
-- `style`: Formatação, ponto-e-vírgula, etc
-- `refactor`: Refatoração de código
-- `test`: Adição/correção de testes
+- `docs`: Mudança em documentação
+- `refactor`: Melhoria no código
 - `chore`: Manutenção geral
 
-## Código de Conduta
-
-Seja respeitoso e construtivo. Este é um espaço de aprendizado para todos.
+Mas não precisa ser perfeito! O importante é ser claro.
 
 ## Dúvidas?
 
-Abra uma issue ou me mande uma mensagem. Estou aprendendo também!
+Só abrir uma issue ou me marcar! Tô aprendendo junto.

@@ -1,57 +1,57 @@
 # SimplePDV 🛒
 
-> Sistema de ponto de venda para pequenos comércios, desenvolvido como projeto de estudos em .NET 9
+> Sistema simples de ponto de venda desenvolvido para praticar .NET e aprender desenvolvimento full-stack
 
 [![.NET](https://img.shields.io/badge/.NET-9.0-512BD4?style=flat&logo=dotnet)](https://dotnet.microsoft.com/)
 [![License](https://img.shields.io/badge/license-MIT-blue.svg)](LICENSE)
 
-## 📋 Sobre o Projeto
+## 📋 Sobre
 
-SimplePDV é um sistema completo de ponto de venda que comecei a desenvolver para aprender mais sobre arquitetura limpa e desenvolvimento full-stack com .NET. O projeto ainda está em desenvolvimento ativo, mas já possui as funcionalidades essenciais para um PDV funcional.
+Meu primeiro projeto full-stack com .NET! Criei esse PDV básico pra aplicar o que aprendi sobre:
+- API REST com ASP.NET Core
+- Entity Framework pra trabalhar com banco de dados
+- WPF pra interface desktop
+- Arquitetura em camadas (Domain, Application, Infrastructure)
 
-**Status:** 🚧 Em desenvolvimento
+É um projeto de estudos, então tem bugs e várias coisas pra melhorar, mas tá funcionando! 😊
 
-### O que já funciona:
-- ✅ Cadastro de produtos com SKU único
-- ✅ Realização de vendas (dinheiro, débito, crédito, PIX)
-- ✅ Controle básico de estoque
-- ✅ Sistema de login simples
-- ✅ API REST documentada com Swagger
-- ✅ Interface desktop em WPF
+## ✨ Funcionalidades
 
-### O que ainda falta:
-- ⏳ Relatórios de vendas e estoque
-- ⏳ Dashboard com gráficos
-- ⏳ Impressão de cupom fiscal
-- ⏳ Backup automático
-- ⏳ Melhorar tratamento de erros
-- ⏳ Testes unitários
+**O que dá pra fazer:**
+- Cadastrar e listar produtos
+- Fazer vendas escolhendo produtos e forma de pagamento
+- Consultar estoque básico
+- Login simples de usuário
+- Tudo funciona local com SQL Server
 
-## 🚀 Tecnologias
+**Limitações conhecidas:**
+- Sem relatórios ainda
+- Interface pode travar em algumas operações
+- Não tem impressão de cupom
+- Validações são bem básicas
+- Preciso adicionar mais tratamento de erros
 
-**Backend**
-- ASP.NET Core Web API (.NET 9)
-- Entity Framework Core 9.0
-- SQL Server LocalDB
-- Clean Architecture (tentando seguir as boas práticas)
+## 🛠️ Tecnologias
 
-**Frontend**
-- WPF (.NET 9)
-- MVVM Pattern com CommunityToolkit.Mvvm
-- Design minimalista inspirado em Material Design
+- **Backend:** ASP.NET Core Web API + Entity Framework Core
+- **Banco:** SQL Server LocalDB
+- **Frontend:** WPF com MVVM
+- **Arquitetura:** Camadas separadas (tentando organizar bem o código)
 
-## 📁 Estrutura
+## 📁 Estrutura do Projeto
+
+Organizei o código em camadas (aprendi isso estudando Clean Architecture):
 
 ```
 SimplePDV/
 ├── src/
 │   ├── Backend/
-│   │   ├── SimplePDV.Domain/          # Entidades de negócio
-│   │   ├── SimplePDV.Application/     # Regras de negócio
-│   │   ├── SimplePDV.Infrastructure/  # Persistência de dados
-│   │   └── SimplePDV.API/             # Endpoints REST
+│   │   ├── SimplePDV.Domain/          # Minhas classes principais (Produto, Venda, etc)
+│   │   ├── SimplePDV.Application/     # Lógica de negócio
+│   │   ├── SimplePDV.Infrastructure/  # Banco de dados com EF Core
+│   │   └── SimplePDV.API/             # Controllers da API REST
 │   └── Client/
-│       └── SimplePDV.WPF/             # Aplicação desktop
+│       └── SimplePDV.WPF/             # Interface desktop
 ```
 
 ## ⚙️ Como Rodar
@@ -86,99 +86,114 @@ cd src\Backend\SimplePDV.API
 dotnet ef database update --project ..\SimplePDV.Infrastructure
 ```
 
-Isso vai criar o banco e popular com dados iniciais (usuário admin e alguns produtos de exemplo).
+Isso cria o banco e já adiciona um usuário admin e alguns produtos de teste pra você brincar.
 
 **4. Rode a API**
 
 ```powershell
-# Ainda em src/Backend/SimplePDV.API
+# Ainda na pasta src/Backend/SimplePDV.API
 dotnet run
 ```
 
-A API vai subir em `https://localhost:7000`. Abra o Swagger em `https://localhost:7000/swagger` pra testar os endpoints.
+A API vai subir em `https://localhost:7000`. Você pode testar no navegador abrindo `https://localhost:7000/swagger`
 
-**5. Rode a aplicação desktop**
-
-Em outro terminal:
+**5. Rode a aplicação desktop** (em outro terminal)
 
 ```powershell
 cd src\Client\SimplePDV.WPF
 dotnet run
 ```
 
-**Login padrão:**
+**Pra entrar:**
 - Usuário: `admin`
 - Senha: `admin123`
 
-## 📚 API Endpoints
+## 🔌 API Endpoints
 
-A documentação completa está disponível no Swagger quando você roda a API.
+A API tem os principais recursos que você precisa:
 
-**Principais recursos:**
+**Produtos:**
+- `GET /api/produtos` - Lista todos
+- `GET /api/produtos/sku/{sku}` - Busca por código
+- `POST /api/produtos` - Cadastra novo
+- `PUT /api/produtos/{id}` - Atualiza
+- `DELETE /api/produtos/{id}` - Inativa produto
 
-| Método | Endpoint | Descrição |
-|--------|----------|-----------|
-| GET | `/api/produtos` | Lista todos os produtos |
-| GET | `/api/produtos/sku/{sku}` | Busca produto por SKU |
-| POST | `/api/produtos` | Cria novo produto |
-| PUT | `/api/produtos/{id}` | Atualiza produto |
-| DELETE | `/api/produtos/{id}` | Remove produto |
-| POST | `/api/vendas` | Registra nova venda |
-| GET | `/api/vendas` | Lista vendas realizadas |
-| POST | `/api/usuarios/login` | Faz login |
+**Vendas:**
+- `POST /api/vendas` - Registra venda
+- `GET /api/vendas` - Lista vendas
+
+**Login:**
+- `POST /api/usuarios/login` - Faz login
+
+Tem mais endpoints, mas esses são os principais. Dá pra ver todos no Swagger quando rodar a API!
 
 ## 🤔 Decisões de Design
 
-Algumas escolhas que fiz durante o desenvolvimento:
+## 💭 Por que fiz isso?
 
-- **Clean Architecture**: Separei bem as camadas pra facilitar manutenção e testes (quando eu fizer eles 😅)
-- **MVVM no WPF**: Usei o CommunityToolkit.Mvvm que simplifica muito o binding e comandos
-- **EF Core Code-First**: Preferi modelar no código e gerar o banco, é mais fácil de versionar
-- **Inativação vs Exclusão**: Produtos não são deletados, apenas inativados, pra manter histórico de vendas
+Escolhas que fiz enquanto desenvolvia:
 
-## 🐛 Problemas Conhecidos
+**Separei em camadas (Domain, Application, Infrastructure):**
+- Vi que é assim que projetos maiores funcionam
+- Facilita quando preciso mudar algo
+- Ainda tô aprendendo a fazer isso direito
 
-- [ ] A sincronização offline ainda não está implementada (tem no código mas não funciona)
-- [ ] Não tem validação de CPF/CNPJ no cadastro
-- [ ] A interface trava um pouco em operações longas (preciso adicionar async melhor)
-- [ ] Falta feedback visual quando salva/deleta algo
+**Entity Framework Code-First:**
+- Achei mais fácil do que criar tabelas manualmente no SQL
+- Migrations são legais pra versionar mudanças no banco
+- Aprendi bastante sobre relacionamentos
 
-## 🛣️ Roadmap
+**Inativação em vez de Delete:**
+- Se eu deletar um produto, as vendas antigas ficam quebradas
+- Então só marco como "inativo" e ele some da lista
+- Foi uma dica que vi num vídeo e fez sentido
 
-Próximas features que pretendo implementar:
+## 🐛 Bugs e Limitações
 
-- [ ] Testes unitários (Domain e Application)
-- [ ] Dashboard com gráficos de vendas
-- [ ] Relatório de produtos mais vendidos
-- [ ] Backup automático do banco
-- [ ] Impressão de cupom
-- [ ] Sistema de permissões (vendedor, gerente, admin)
-- [ ] Suporte a múltiplas lojas
+Coisas que eu sei que não tão boas:
 
-## 📝 Aprendizados
+- A interface às vezes trava (preciso usar mais async/await)
+- Não valida direito os campos (aceita preço negativo, por exemplo)
+- Erros só aparecem no console, não tem mensagem pro usuário
+- A "sincronização offline" que tem no código não funciona
+- Design tá básico mas funcional
 
-Este é meu primeiro projeto "grande" com .NET 9 e estou usando pra aprender:
+## 🎯 Próximos Passos
 
-- Arquitetura limpa na prática
-- Padrões de projeto (Repository, Unit of Work)
-- MVVM com WPF moderno
-- Entity Framework Core avançado
-- API REST com boas práticas
+O que quero adicionar/melhorar:
 
-Qualquer sugestão ou crítica construtiva é muito bem-vinda!
+1. **Curto prazo:**
+   - Mensagens de erro mais claras
+   - Validar campos antes de salvar
+   - Loading quando tá processando
+
+2. **Médio prazo:**
+   - Relatório simples de vendas
+   - Gráfico mostrando vendas do dia
+   - Impressão de recibo
+
+3. **Longo prazo:**
+   - Aprender a fazer testes
+   - Melhorar a segurança (usar JWT de verdade)
+   - Deixar a interface mais bonita
+
+## 📚 O que aprendi
+
+Esse projeto me ensinou bastante:
+
+- Como criar uma API REST do zero
+- Trabalhar com Entity Framework e banco de dados
+- MVVM no WPF (confesso que deu trabalho entender)
+- Git e como organizar commits
+- Ler documentação (muito!)
+
+Ainda tenho muito o que aprender, mas já deu pra pegar a base. Se você tá começando também, qualquer dúvida pode abrir issue que tento ajudar!
 
 ## 📄 Licença
 
-Este projeto está sob a licença MIT. Veja o arquivo [LICENSE](LICENSE) para mais detalhes.
+MIT License - pode usar à vontade pra estudar e modificar.
 
 ---
 
-**Desenvolvido por Gabriel Araújo** | [GitHub](https://github.com/gb-araujo)
-
-## Sincronização Offline
-
-O aplicativo desktop funciona mesmo sem conexão com o servidor. As vendas são salvas localmente no SQLite e enviadas automaticamente quando a conexão é restabelecida.
-
-## Licença
-
-Projeto de código aberto para fins educacionais.
+**Feito com ☕ por Gabriel Araújo** | [GitHub](https://github.com/gb-araujo)
