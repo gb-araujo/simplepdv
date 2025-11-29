@@ -3,6 +3,10 @@ using SimplePDV.Domain.Entities;
 
 namespace SimplePDV.Infrastructure.Data;
 
+/// <summary>
+/// Contexto do EF Core pra acesso ao banco SQL Server.
+/// Seed de dados iniciais tá no método OnModelCreating.
+/// </summary>
 public class ApplicationDbContext : DbContext
 {
     public ApplicationDbContext(DbContextOptions<ApplicationDbContext> options) : base(options)
