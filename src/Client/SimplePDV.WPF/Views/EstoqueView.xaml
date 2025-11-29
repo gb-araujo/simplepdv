@@ -1,0 +1,21 @@
+<UserControl x:Class="SimplePDV.WPF.Views.EstoqueView"
+             xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+             xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml">
+    <Grid Margin="10">
+        <Grid.RowDefinitions>
+            <RowDefinition Height="Auto"/>
+            <RowDefinition Height="*"/>
+        </Grid.RowDefinitions>
+
+        <TextBlock Grid.Row="0" Text="Controle de Estoque" FontSize="24" FontWeight="Bold" Margin="0,0,0,10"/>
+
+        <DataGrid Grid.Row="1" ItemsSource="{Binding Produtos}" AutoGenerateColumns="False" IsReadOnly="True">
+            <DataGrid.Columns>
+                <DataGridTextColumn Header="SKU" Binding="{Binding SKU}" Width="120"/>
+                <DataGridTextColumn Header="Produto" Binding="{Binding Nome}" Width="*"/>
+                <DataGridTextColumn Header="Estoque Atual" Binding="{Binding EstoqueAtual}" Width="120"/>
+                <DataGridTextColumn Header="Estoque Mínimo" Binding="{Binding EstoqueMinimo}" Width="120"/>
+            </DataGrid.Columns>
+        </DataGrid>
+    </Grid>
+</UserControl>

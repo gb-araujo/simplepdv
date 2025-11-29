@@ -1,0 +1,236 @@
+<UserControl x:Class="SimplePDV.WPF.Views.VendasView"
+             xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+             xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml">
+    <Grid>
+        <Grid.ColumnDefinitions>
+            <ColumnDefinition Width="400"/>
+            <ColumnDefinition Width="*"/>
+        </Grid.ColumnDefinitions>
+
+        <!-- Painel de Produtos (Esquerda) -->
+        <Border Grid.Column="0" Background="#FFFFFF" CornerRadius="8" Padding="24" Margin="0,0,16,0" 
+                BorderBrush="#E2E2E2" BorderThickness="1">
+            <StackPanel>
+                <TextBlock Text="Adicionar Produto" FontSize="20" FontWeight="SemiBold" 
+                           Foreground="#111111" Margin="0,0,0,24"/>
+                
+                <!-- Seleção de Produto -->
+                <TextBlock Text="Produto" FontSize="14" FontWeight="Medium" 
+                           Foreground="#111111" Margin="0,0,0,8"/>
+                <ComboBox ItemsSource="{Binding Produtos}" 
+                          SelectedItem="{Binding ProdutoSelecionado}"
+                          DisplayMemberPath="Nome" 
+                          Height="40" Padding="12" FontSize="14"
+                          Background="#FFFFFF" Foreground="#111111"
+                          BorderBrush="#E2E2E2" BorderThickness="1"
+                          Margin="0,0,0,20"/>
+
+                <!-- Quantidade -->
+                <TextBlock Text="Quantidade" FontSize="14" FontWeight="Medium" 
+                           Foreground="#111111" Margin="0,0,0,8"/>
+                <TextBox Text="{Binding Quantidade, UpdateSourceTrigger=PropertyChanged}" 
+                         Height="40" Padding="12" FontSize="14"
+                         Background="#FFFFFF" Foreground="#111111"
+                         BorderBrush="#E2E2E2" BorderThickness="1"
+                         Margin="0,0,0,20"/>
+
+                <!-- Botão Adicionar -->
+                <Button Content="Adicionar ao Carrinho" Command="{Binding AdicionarItemCommand}" 
+                        Background="#0066FF" Foreground="White" BorderThickness="0"
+                        Height="44" FontSize="14" FontWeight="Medium" Cursor="Hand"
+                        Margin="0,0,0,32">
+                    <Button.Style>
+                        <Style TargetType="Button">
+                            <Setter Property="Background" Value="#0066FF"/>
+                            <Setter Property="Foreground" Value="White"/>
+                            <Setter Property="BorderThickness" Value="0"/>
+                            <Setter Property="Template">
+                                <Setter.Value>
+                                    <ControlTemplate TargetType="Button">
+                                        <Border Background="{TemplateBinding Background}" 
+                                                CornerRadius="6" Padding="16,12">
+                                            <ContentPresenter HorizontalAlignment="Center" VerticalAlignment="Center"/>
+                                        </Border>
+                                    </ControlTemplate>
+                                </Setter.Value>
+                            </Setter>
+                            <Style.Triggers>
+                                <Trigger Property="IsMouseOver" Value="True">
+                                    <Setter Property="Background" Value="#0052CC"/>
+                                </Trigger>
+                            </Style.Triggers>
+                        </Style>
+                    </Button.Style>
+                </Button>
+
+                <!-- Forma de Pagamento -->
+                <TextBlock Text="Forma de Pagamento" FontSize="14" FontWeight="Medium" 
+                           Foreground="#111111" Margin="0,0,0,8"/>
+                <ComboBox ItemsSource="{Binding FormasPagamento}" 
+                          SelectedItem="{Binding FormaPagamentoSelecionada}" 
+                          Height="40" Padding="12" FontSize="14"
+                          Background="#FFFFFF" Foreground="#111111"
+                          BorderBrush="#E2E2E2" BorderThickness="1"/>
+            </StackPanel>
+        </Border>
+
+        <!-- Carrinho de Compras (Direita) -->
+        <Grid Grid.Column="1">
+            <Grid.RowDefinitions>
+                <RowDefinition Height="Auto"/>
+                <RowDefinition Height="*"/>
+                <RowDefinition Height="Auto"/>
+                <RowDefinition Height="Auto"/>
+            </Grid.RowDefinitions>
+
+            <!-- Cabeçalho -->
+            <TextBlock Grid.Row="0" Text="Carrinho de Compras" FontSize="20" FontWeight="SemiBold" 
+                       Foreground="#111111" Margin="0,0,0,16"/>
+
+            <!-- Grid de Itens -->
+            <Border Grid.Row="1" Background="#FFFFFF" CornerRadius="8" 
+                    BorderBrush="#E2E2E2" BorderThickness="1" Margin="0,0,0,16">
+                <DataGrid ItemsSource="{Binding ItensVenda}" 
+                          AutoGenerateColumns="False" CanUserAddRows="False"
+                          HeadersVisibility="Column" GridLinesVisibility="None"
+                          Background="Transparent" BorderThickness="0"
+                          RowBackground="#FFFFFF" AlternatingRowBackground="#F9FAFB">
+                    <DataGrid.Resources>
+                        <Style TargetType="DataGridColumnHeader">
+                            <Setter Property="Background" Value="#F9FAFB"/>
+                            <Setter Property="Foreground" Value="#6C757D"/>
+                            <Setter Property="FontWeight" Value="SemiBold"/>
+                            <Setter Property="FontSize" Value="13"/>
+                            <Setter Property="Padding" Value="16,12"/>
+                            <Setter Property="BorderThickness" Value="0,0,0,1"/>
+                            <Setter Property="BorderBrush" Value="#E2E2E2"/>
+                        </Style>
+                        <Style TargetType="DataGridCell">
+                            <Setter Property="BorderThickness" Value="0"/>
+                            <Setter Property="Padding" Value="16,12"/>
+                            <Setter Property="Template">
+                                <Setter.Value>
+                                    <ControlTemplate TargetType="DataGridCell">
+                                        <Border Padding="{TemplateBinding Padding}" Background="{TemplateBinding Background}">
+                                            <ContentPresenter VerticalAlignment="Center"/>
+                                        </Border>
+                                    </ControlTemplate>
+                                </Setter.Value>
+                            </Setter>
+                        </Style>
+                    </DataGrid.Resources>
+                    <DataGrid.Columns>
+                        <DataGridTextColumn Header="Produto" Binding="{Binding Produto.Nome}" Width="*"/>
+                        <DataGridTextColumn Header="Qtd" Binding="{Binding Quantidade}" Width="80"/>
+                        <DataGridTextColumn Header="Preço Unit." Binding="{Binding PrecoUnitario, StringFormat=C2}" Width="120"/>
+                        <DataGridTextColumn Header="Subtotal" Binding="{Binding Subtotal, StringFormat=C2}" Width="120"/>
+                        <DataGridTemplateColumn Width="100">
+                            <DataGridTemplateColumn.CellTemplate>
+                                <DataTemplate>
+                                    <Button Content="Remover" 
+                                            Command="{Binding DataContext.RemoverItemCommand, RelativeSource={RelativeSource AncestorType=DataGrid}}" 
+                                            CommandParameter="{Binding}"
+                                            Background="#DC3545" Foreground="White" BorderThickness="0"
+                                            Padding="12,6" FontSize="12" Cursor="Hand">
+                                        <Button.Style>
+                                            <Style TargetType="Button">
+                                                <Setter Property="Background" Value="#DC3545"/>
+                                                <Setter Property="Foreground" Value="White"/>
+                                                <Setter Property="BorderThickness" Value="0"/>
+                                                <Setter Property="Template">
+                                                    <Setter.Value>
+                                                        <ControlTemplate TargetType="Button">
+                                                            <Border Background="{TemplateBinding Background}" 
+                                                                    CornerRadius="4" Padding="{TemplateBinding Padding}">
+                                                                <ContentPresenter HorizontalAlignment="Center" VerticalAlignment="Center"/>
+                                                            </Border>
+                                                        </ControlTemplate>
+                                                    </Setter.Value>
+                                                </Setter>
+                                                <Style.Triggers>
+                                                    <Trigger Property="IsMouseOver" Value="True">
+                                                        <Setter Property="Background" Value="#C82333"/>
+                                                    </Trigger>
+                                                </Style.Triggers>
+                                            </Style>
+                                        </Button.Style>
+                                    </Button>
+                                </DataTemplate>
+                            </DataGridTemplateColumn.CellTemplate>
+                        </DataGridTemplateColumn>
+                    </DataGrid.Columns>
+                </DataGrid>
+            </Border>
+
+            <!-- Total -->
+            <Border Grid.Row="2" Background="#FFFFFF" CornerRadius="8" Padding="24" 
+                    BorderBrush="#E2E2E2" BorderThickness="1" Margin="0,0,0,16">
+                <StackPanel>
+                    <TextBlock Text="Total da Venda" FontSize="16" FontWeight="Medium" 
+                               Foreground="#6C757D" Margin="0,0,0,8"/>
+                    <TextBlock FontSize="32" FontWeight="Bold" 
+                               Foreground="#0066FF">
+                        <Run Text="{Binding Total, StringFormat=C2}"/>
+                    </TextBlock>
+                </StackPanel>
+            </Border>
+
+            <!-- Ações -->
+            <StackPanel Grid.Row="3" Orientation="Horizontal" HorizontalAlignment="Right">
+                <Button Content="Cancelar Venda" Command="{Binding CancelarVendaCommand}" 
+                        Background="#6C757D" Foreground="White" BorderThickness="0"
+                        Height="44" Padding="24,12" FontSize="14" FontWeight="Medium" Cursor="Hand"
+                        Margin="0,0,12,0">
+                    <Button.Style>
+                        <Style TargetType="Button">
+                            <Setter Property="Background" Value="#6C757D"/>
+                            <Setter Property="Foreground" Value="White"/>
+                            <Setter Property="BorderThickness" Value="0"/>
+                            <Setter Property="Template">
+                                <Setter.Value>
+                                    <ControlTemplate TargetType="Button">
+                                        <Border Background="{TemplateBinding Background}" 
+                                                CornerRadius="6" Padding="{TemplateBinding Padding}">
+                                            <ContentPresenter HorizontalAlignment="Center" VerticalAlignment="Center"/>
+                                        </Border>
+                                    </ControlTemplate>
+                                </Setter.Value>
+                            </Setter>
+                            <Style.Triggers>
+                                <Trigger Property="IsMouseOver" Value="True">
+                                    <Setter Property="Background" Value="#5A6268"/>
+                                </Trigger>
+                            </Style.Triggers>
+                        </Style>
+                    </Button.Style>
+                </Button>
+                <Button Content="Finalizar Venda" Command="{Binding FinalizarVendaCommand}" 
+                        Background="#28A745" Foreground="White" BorderThickness="0"
+                        Height="44" Padding="24,12" FontSize="14" FontWeight="Medium" Cursor="Hand">
+                    <Button.Style>
+                        <Style TargetType="Button">
+                            <Setter Property="Background" Value="#28A745"/>
+                            <Setter Property="Foreground" Value="White"/>
+                            <Setter Property="BorderThickness" Value="0"/>
+                            <Setter Property="Template">
+                                <Setter.Value>
+                                    <ControlTemplate TargetType="Button">
+                                        <Border Background="{TemplateBinding Background}" 
+                                                CornerRadius="6" Padding="{TemplateBinding Padding}">
+                                            <ContentPresenter HorizontalAlignment="Center" VerticalAlignment="Center"/>
+                                        </Border>
+                                    </ControlTemplate>
+                                </Setter.Value>
+                            </Setter>
+                            <Style.Triggers>
+                                <Trigger Property="IsMouseOver" Value="True">
+                                    <Setter Property="Background" Value="#218838"/>
+                                </Trigger>
+                            </Style.Triggers>
+                        </Style>
+                    </Button.Style>
+                </Button>
+            </StackPanel>
+        </Grid>
+    </Grid>
+</UserControl>
